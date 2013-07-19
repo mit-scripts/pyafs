@@ -12,7 +12,7 @@ cdef int _init = 0
 
 # pioctl convenience wrappers
 
-cdef extern int pioctl_read(char *dir, afs_int32 op, void *buffer, unsigned short size, afs_int32 follow) except -1:
+cdef int pioctl_read(char *dir, afs_int32 op, void *buffer, unsigned short size, afs_int32 follow) except -1:
     cdef ViceIoctl blob
     cdef afs_int32 code
     blob.in_size  = 0
@@ -26,7 +26,7 @@ cdef extern int pioctl_read(char *dir, afs_int32 op, void *buffer, unsigned shor
     pyafs_error(code)
     return code
 
-cdef extern int pioctl_write(char *dir, afs_int32 op, char *buffer, afs_int32 follow) except -1:
+cdef int pioctl_write(char *dir, afs_int32 op, char *buffer, afs_int32 follow) except -1:
     cdef ViceIoctl blob
     cdef afs_int32 code
     blob.cin = buffer
