@@ -1,7 +1,7 @@
 """
 General PyAFS utilities, such as error handling
 """
-
+# cython: c_string_type=str, c_string_encoding=ascii
 import sys
 
 # otherwise certain headers are unhappy
@@ -18,6 +18,7 @@ cdef int pioctl_read(char *dir, afs_int32 op, void *buffer, unsigned short size,
     blob.in_size  = 0
     blob.out_size = size
     blob.out = buffer
+
     code = pioctl(dir, op, &blob, follow)
     # This might work with the rest of OpenAFS, but I'm not convinced
     # the rest of it is consistent
@@ -66,3 +67,8 @@ def pyafs_error(code):
 
     if code != 0:
         raise AFSException(code)
+
+def path_to_bytes(path):
+    if isinstance(path, unicode):
+        return path.encode(sys.getfilesystemencoding(), 'surrogateescape')
+    return path
