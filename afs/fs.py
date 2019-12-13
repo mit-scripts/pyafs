@@ -6,7 +6,7 @@ def inafs(path):
     """Return True if a path is in AFS."""
     try:
         whichcell(path)
-    except OSError, e:
+    except OSError as e:
         if e.errno in (errno.EINVAL, errno.ENOENT):
             return False
 
