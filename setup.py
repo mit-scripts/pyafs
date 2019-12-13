@@ -17,10 +17,7 @@ include_dirs = [os.path.join(os.path.dirname(__file__), 'afs'),
                 '%s/include' % root]
 library_dirs = ['%s/lib' % root,
                 '%s/lib/afs' % root]
-if os.path.exists('%s/lib/libafsauthent_pic.a' % root) or os.path.exists('%s/lib64/libafsauthent_pic.a' % root):
-    suffix = '_pic'
-else:
-    suffix = ''
+suffix = '' # Force linking .so
 libraries = ['afsauthent%s' % suffix, 'afsrpc%s' % suffix, 'resolv']
 define_macros = [('AFS_PTHREAD_ENV', None)]
 
